@@ -4,6 +4,8 @@
 
 ### 🛠 Breaking changes
 
+- Skips fingerprinting the `version` value from app config. ([#28712](https://github.com/expo/expo/pull/28712) by [@kudo](https://github.com/kudo))
+
 ### 🎉 New features
 
 ### 🐛 Bug fixes
