@@ -7,6 +7,7 @@ exports.normalizeOptionsAsync = exports.DEFAULT_IGNORE_PATHS = exports.FINGERPRI
 const promises_1 = __importDefault(require("fs/promises"));
 const os_1 = __importDefault(require("os"));
 const path_1 = __importDefault(require("path"));
+const Fingerprint_types_1 = require("./Fingerprint.types");
 exports.FINGERPRINT_IGNORE_FILENAME = '.fingerprintignore';
 exports.DEFAULT_IGNORE_PATHS = [
     exports.FINGERPRINT_IGNORE_FILENAME,
@@ -69,6 +70,7 @@ exports.DEFAULT_IGNORE_PATHS = [
         'write-file-atomic',
     ].join(',')}}/**/*`,
 ];
+const DEFAULT_SOURCE_SKIPS = Fingerprint_types_1.SourceSkips.AppConfigVersion | Fingerprint_types_1.SourceSkips.AppConfigRuntimeVersion;
 async function normalizeOptionsAsync(projectRoot, options) {
     return {
         ...options,
@@ -76,6 +78,7 @@ async function normalizeOptionsAsync(projectRoot, options) {
         concurrentIoLimit: options?.concurrentIoLimit ?? os_1.default.cpus().length,
         hashAlgorithm: options?.hashAlgorithm ?? 'sha1',
         ignorePaths: await collectIgnorePathsAsync(projectRoot, options),
+        sourceSkips: options?.sourceSkips ?? DEFAULT_SOURCE_SKIPS,
     };
 }
 exports.normalizeOptionsAsync = normalizeOptionsAsync;
